@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
 from .models import Dish
+from django.shortcuts import render, get_object_or_404
+
 
 def index(request):
     dishes = Dish.objects.all()  # Dish 테이블의 모든 레코드 조회
@@ -30,3 +31,7 @@ def contact(request):
 
 def team(request):
     return render(request, 'team.html')
+
+
+
+
