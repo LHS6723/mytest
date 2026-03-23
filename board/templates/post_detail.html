@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* 전체 배경과 중앙 정렬 */
+.detail-wrapper {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    background-color: #fff5e6; /* 연한 주황 배경 */
+}
+
+/* 카드 스타일 */
+.detail-card {
+    width: 100%;
+    max-width: 700px;
+    background-color: #fff8f0; /* 살짝 밝은 주황 */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 30px;
+}
+
+/* 글 제목 */
+.post-title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #d97706; /* 진한 주황 */
+}
+
+/* 메타 정보 */
+.post-meta {
+    color: #7c4700;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* 글 내용 */
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    white-space: pre-line;
+    margin-bottom: 25px;
+}
+
+/* 댓글 카드 */
+.comment-card {
+    background-color: #fff3e0; /* 연한 주황 */
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: 0.2s;
+}
+
+.comment-card:hover {
+    background-color: #ffe0b2;
+}
+
+/* 댓글 작성 폼 */
+.comment-form {
+    margin-top: 20px;
+}
+
+textarea.form-control {
+    border-radius: 10px;
+    resize: none;
+}
+
+/* 버튼 */
+.btn-primary {
+    background-color: #fb923c;
+    border-color: #fb923c;
+}
+
+.btn-primary:hover {
+    background-color: #f97316;
+    border-color: #f97316;
+}
+
+.btn-outline-secondary {
+    border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #d97706;
+}
+
+a:hover {
+    color: #f97316;
+}
+</style>
+
+<div class="detail-wrapper">
+
+    <div class="detail-card">
+
+        <!-- 게시글 -->
+        <h1 class="post-title">{{ post.title }}</h1>
+        <div class="post-meta">
+            작성자: {{ post.author }} | {{ post.created_at|date:"Y-m-d H:i" }}
+        </div>
+        <div class="post-content">{{ post.content }}</div>
+
+        <hr>
+
+        <!-- 댓글 리스트 -->
+        <h3>💬 댓글</h3>
+        {% for comment in comments %}
+        <div class="comment-card">
+            <div><strong>{{ comment.author }}</strong> <span class="text-muted" style="font-size:0.85rem;">{{ comment.created_at|date:"m-d H:i" }}</span></div>
+            <div>{{ comment.content }}</div>
+        </div>
+        {% empty %}
+        <div class="text-muted py-2 text-center">아직 댓글이 없습니다 😢</div>
+        {% endfor %}
+
+        <!-- 댓글 작성 -->
+        <div class="comment-form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary mt-2">작성</button>
+            </form>
+        </div>
+
+        <hr>
+
+        <a href="{% url 'post_list' %}">← 목록으로</a>
+
+    </div>
+
+</div>
+
+{% endblock %}

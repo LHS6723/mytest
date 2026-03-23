@@ -27,7 +27,8 @@ urlpatterns = [
     path('',include('shop.urls')),
     path('shop/',include('shop.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/',views.signup,name='signup')
+    path('signup/',views.signup,name='signup'),
+    path('board/',include('board.urls'))
 
 ]
 if settings.DEBUG:
