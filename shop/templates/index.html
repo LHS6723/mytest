@@ -21,9 +21,9 @@
                             <span>{{i.description}}</span>
                         </div>
                         <div class="position-relative mt-auto">
-                            <img class="img-fluid" src="{{i.image.url}}" alt="">
+                            <a href="{% url 'detail' i.id %}"><img class="img-fluid" src="{{i.image.url}}" alt=""></a>
                             <div class="product-overlay">
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i class="fa fa-eye text-primary"></i></a>
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle" href="{% url 'detail' i.id %}"><i class="fa fa-eye text-primary"></i></a>
                             </div>
                         </div>
                     </div>
